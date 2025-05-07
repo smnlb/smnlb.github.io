@@ -51,5 +51,56 @@
     </b>
     </section>
   </div>
+  <div id="rss-feed"></div>
+
+  <script type="text/javascript">
+    fetch("https://wtf.roflcopter.fr/rss-bridge/?action=display&bridge=TelegramBridge&username=%40planerkapublic&format=Atom")
+    .then(response => response.text())
+    .then(str => new window.DOMParser().parseFromString(str, "text/xml"))
+    .then(data => {
+        const items = data.querySelectorAll("entry");
+        let html = "";
+        items.forEach(el => {
+            let title = el.querySelector("title").textContent;
+            let link = el.querySelector("link").getAttribute("href");
+            let published = el.querySelector("published").textContent;
+            let content = el.querySelector("content").textContent;
+            let imageUrl = el.querySelector("media\\:content, img")?.getAttribute("url") || '';
+
+            // исключение поста с текстом "Channel created"
+            if (/channel created/i.test(content.trim())) {
+                return;
+            }
+
+            // форматирование даты публикации
+            let date = new Date(published);
+            let formattedDate = date.toLocaleDateString("ru-RU", {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            }).replace(' г.', 'г.');
+
+            // создание HTML-блока для каждого поста
+            html += `
+                <div class="post">
+                    <div class="post-header">
+                        <img src="https://planerka.app/images/planerka-logo.webp" alt="Channel Avatar">
+                        <div class="channel-info">
+                            Планёрка публичный канал
+                            <span>${formattedDate}</span>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        ${imageUrl ? `<img src="${imageUrl}" alt="Post Image">` : ''}
+                        ${content}
+                        <br><br>
+                        <a href="${link}" target="_blank" class="link">Читать дальше</a>
+                    </div>
+                </div>
+            `;
+        });
+        document.getElementById("rss-feed").innerHTML = html;
+    });
+  </script>
 </body>
 </html>
