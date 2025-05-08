@@ -5,7 +5,7 @@ p {
 dialog::backdrop {
   background: rgba(21, 23, 25, 1);
 }
-body {
+.ubuntu-sans-font {
   font-family: "Ubuntu Sans", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
