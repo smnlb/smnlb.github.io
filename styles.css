@@ -15,7 +15,9 @@ dialog::backdrop {
 }
 @font-face {
     font-family: 'FX300_angularregular';
-    src: url('FX300_Angular.ttf') format('ttf');
+    src: url('FX300_Angular.ttf') format('ttf'),
+         url('fx300_angular-webfont.woff2') format('woff2'),
+         url('fx300_angular-webfont.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
