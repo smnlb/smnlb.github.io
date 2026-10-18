@@ -1,506 +1,341 @@
 <!DOCTYPE html>
-<html lang="en">
-<head> 
-    <!-- design -->
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link type="text/css" rel="stylesheet" href="styles.css">
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="links">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>smnlb</title>
+    <link rel="icon" type="image/webp" href="logo.webp">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
-    <title>smnlb</title>
-    <link rel="icon" type="image/webp" href="#" />
-    
-    <!-- to use social readers via microsub -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- social readers via microsub -->
     <link rel="authorization_endpoint" href="https://indieauth.com/auth">
     <link rel="token_endpoint" href="https://tokens.indieauth.com/token">
     <link rel="microsub" href="https://aperture.p3k.io/microsub/1030">
 
-    <!-- PyScript -->
-    <link rel="stylesheet" href="https://pyscript.net/releases/2024.11.1/core.css">
-    <script type="module" src="https://pyscript.net/releases/2024.11.1/core.js"></script>
-
-    <!-- for splashscreen -->
     <style>
         #loading { outline: none; border: none; background: transparent }
+        .sidenav a, .content a { color: #151719 !important }
+        .content h2 { font-size: 1.1em; margin: 1.6em 0 .5em; font-weight: 700 }
+        #clock { font-variant-numeric: tabular-nums }
     </style>
     <script type="module">
-       const loading = document.getElementById('loading');
-       addEventListener('py:ready', () => loading.close());
-       loading.showModal();
+        const loading = document.getElementById('loading');
+        const hide = () => { if (loading && loading.open) loading.close(); };
+        const minDelay = new Promise(resolve => setTimeout(resolve, 400));
+        const pageLoad = new Promise(resolve => {
+            if (document.readyState === 'complete') resolve();
+            else window.addEventListener('load', resolve, { once: true });
+        });
+        Promise.race([
+            Promise.all([minDelay, pageLoad]),
+            new Promise(resolve => setTimeout(resolve, 15000)) // safety net
+        ]).then(hide);
+        if (loading && typeof loading.showModal === 'function') loading.showModal();
     </script>
 </head>
 <body>
-  <dialog id="loading">
-     <h1 style="color: #d7d7d7"><span class="wipeout">Loading...</span></h1>
-  </dialog>
-     <ul class="sidenav">
-        <li><a href="https://github.com/smnlb/smnlb.github.io/blob/main" rel="me" style="color: #151719">github</a></li>
-        <li><a href="https://web.telegram.org" style="color: #151719">telegram</a></li>
-        <li><a href="https://github.com/HelloZeroNet/ZeroNet" style="color: #151719">zeronet</a></li>
-        <li><a href="https://sethm.me/worm-sim/" style="color: #151719">worm</a></li>
-        <li><a href="https://smnlb.github.io/tokipona/" style="color: #151719">tokipona</a></li>
-        <li><a href="https://xmrig.com/" style="color: #151719">monero miner</a></li>
-        <li><a href="https://monero.hashvault.pro/ru/" style="color: #151719">monero pool</a></li>
-        <li><a href="/miner.html" style="color: #151719">webminer</a></li>
-        <li><a href="" style="color: #151719"></a></li>
+    <dialog id="loading">
+        <h1 style="color: #d7d7d7"><span class="wipeout">Loading...</span></h1>
+    </dialog>
+
+    <ul class="sidenav">
+        <li><a href="https://github.com/smnlb/smnlb.github.io/blob/main" rel="me">github</a></li>
+        <li><a href="https://web.telegram.org">telegram</a></li>
+        <li><a href="https://github.com/HelloZeroNet/ZeroNet">zeronet</a></li>
+        <li><a href="https://sethm.me/worm-sim/">worm</a></li>
+        <li><a href="https://smnlb.github.io/tokipona/">tokipona</a></li>
+        <li><a href="https://xmrig.com/">monero miner</a></li>
+        <li><a href="https://monero.hashvault.pro/ru/">monero pool</a></li>
+        <li><a href="/miner.html">webminer</a></li>
     </ul>
-  
-  <div class="content">
-    <section>
-    <b>
-     <p>
-      Now is 
-      <script type="py">
-         from pyscript import display
-         from datetime import datetime
-         now = datetime.now()
-         display(now.strftime("%m/%d/%Y, %H:%M:%S"))
-      </script>
-     </p>
-    </b>
-    </section>
-    
-    <section>
-     <p>
-      <a href="https://github.com/xmrig/xmrig/releases/download/v6.24.0/xmrig-6.24.0-windows-x64.zip" style="color: #151719">Майнер Monero</a> 
-     </p>
-    </section>
 
-    <section>
-     <p>
-      Эта страница больше не редактируется.
-     </p>
-    </section>
-      
-    <figure>
-          <figcaption>Around_the_World.mp3</figcaption>
-          <audio controls src="/Around_the_World.mp3">Ваш браузер не поддерживает встроенное аудио. Попробуйте скачать <a href="/Around_the_World.mp3" style="color: #151719" download>по ссылке</a>.</audio>  
-    </figure>
-    <section>
-     <p>
-        – <a href="https://m.youtube.com/channel/UC_kRDKYrUlrbtrSiyu5Tflg" style="color: #151719">Youtube</a>
-     </p>
-    </section>
+    <div class="content">
+        <section>
+            <p>Эта страница больше не будет обновляться.</p>
+        </section>
 
-    <section>
-     <p>
-        <img src=""><a href="" style="color: #151719"></a>
-        <a href="https://en.m.wikipedia.org/wiki/OpenWorm" style="color: #151719"><b>OpenWorm</b></a>
-        – <a href="https://neurokernel.github.io/" style="color: #151719">Neurokernel</a>
-     </p>
-    </section>
+        <section>
+            <h2>Сейчас</h2>
+            <p><b>Now is <span id="clock">…</span></b></p>
+        </section>
 
-    <section>
-     <p>
-        – <a href="https://t.me/lsj_ru" style="color: #151719">@lsj_ru</a><br>
-        – <a href="https://t.me/whalesgohigh" style="color: #151719">@whalesgohigh</a><br>
-        – <a href="https://t.me/piratepartyru" style="color: #151719">Канал Пиратской партии России</a><br>
-        – <a href="https://t.me/Montelibero_ru" style="color: #151719">@Montelibero_ru</a><br>
-        – <a href="https://en.wikiquote.org/wiki/Henry_George" style="color: #151719">Henry George</a>
-     </p>
-    </section>
+        <section>
+            <h2>Аудио</h2>
+            <figure>
+                <figcaption>Around_the_World.mp3</figcaption>
+                <audio controls preload="none" src="/Around_the_World.mp3">
+                    Ваш браузер не поддерживает встроенное аудио.
+                    Попробуйте <a href="/Around_the_World.mp3" download>скачать по ссылке</a>.
+                </audio>
+            </figure>
+            <p>– <a href="https://m.youtube.com/channel/UC_kRDKYrUlrbtrSiyu5Tflg">Youtube</a></p>
+        </section>
 
-    <section>
-     <p>
-        В логотипе <a href="https://en.m.wikipedia.org/wiki/Bitcoin" style="color: #151719">биткоина</a> используется полужирный курсив <a href="https://en.m.wikipedia.org/wiki/Ubuntu_(typeface)" style="color: #151719"><b>Ubuntu</b></a>
-        <br><br>
-        – <a href="https://fonts.google.com/specimen/Ubuntu" style="color: #151719">Скачать с Google Fonts</a>
-     </p>
-    </section>
+        <section>
+            <h2>Майнинг Monero</h2>
+            <p><a href="https://github.com/xmrig/xmrig/releases/download/v6.24.0/xmrig-6.24.0-windows-x64.zip">Майнер Monero</a></p>
+        </section>
 
-    <section>
-     <p>
-        <a href="https://t.me/yandmusicbot" style="color: #151719">Неофициальный клиент Яндекс Музыки в Telegram</a>
-        <br><br>
-        – <a href="https://t.me/yandex_music_api" style="color: #151719">Чат разработчиков</a><br>
-          | <a href="https://t.me/music_yandex_channel" style="color: #151719">Старый канал</a>
-        <br><br>
-        – <a href="https://t.me/fmusbot" style="color: #151719">Бот для скачивания музыки</a>
-        </p>
-    </section>
-    <section>
-     <p>
-        5 причин перейти на <a href="https://bandcamp.com/simeonlub/following/artists_and_labels" style="color: #151719">Bandcamp</a>:<br>
-        – Свободный доступ в России.<br>
-        – Бесплатное прослушивание и скачивание треков в различных форматах.<br>
-        – Удобный интерфейс и простой дизайн, возможность редактирования авторами своих страниц.<br>
-        – Система фильтров и тегов.<br>
-        – Прямая поддержка независимых исполнителей, в частности, через покупку мерча; низкие комиссионные сборы и свободное ценообразование.
-     </p>
-    </section>
+        <section>
+            <h2>Наука и технологии</h2>
+            <ul>
+                <li>
+                    <a href="https://en.m.wikipedia.org/wiki/OpenWorm"><b>OpenWorm</b></a>
+                    – <a href="https://neurokernel.github.io/">Neurokernel</a>
+                </li>
+                <li>
+                    <a href="https://fis.wikireading.ru/hXbSZ0htV5">Ссылка</a>,
+                    <a href="https://habr.com/ru/articles/738004/">Супердетерминизм</a>
+                    (<a href="https://www.youtube.com/watch?v=ytyjgIyegDI">видео</a>),
+                    <a href="https://www.youtube.com/watch?v=PdL8CudJTcs">видео</a>
+                </li>
+                <li><a href="https://en.wikipedia.org/wiki/Warsaw_radio_mast">Варшавская радиомачта</a></li>
+                <li><a href="https://www.shodan.io/">Shodan</a> — поисковая система для различных типов серверов</li>
+                <li>
+                    <a href="https://en.wikipedia.org/wiki/Arctic_World_Archive"><b>Arctic World Archive</b></a> —
+                    <a href="https://arcticworldarchive.org/">хранилище данных</a>,
+                    <a href="https://habr.com/ru/companies/ruvds/articles/326828/">расположенное на острове Шпицберген</a>,
+                    которое содержит весь открытый исходный код GitHub в виде
+                    <a href="https://en.wikipedia.org/wiki/Boxing_barcode">двумерного штрих-кода</a>
+                    и способно выдержать ядерный взрыв
+                </li>
+            </ul>
+        </section>
 
-    <section>
-     <p>
-        <a href="https://ru.m.wikipedia.org/wiki/Шина_(фильм)" style="color: #151719">«Шина»</a> — фильм <a href="https://www.kinopoisk.ru/name/537440/" style="color: #151719"><b>Кантена Дюпьё</b></a> об автомобильной покрышке
-     </p>
-    </section>
+        <section>
+            <h2>Политика и экономика</h2>
+            <p>
+                Согласно <a href="https://ru.m.wikipedia.org/wiki/Теорема_Эрроу">теореме Эрроу</a>, только
+                <a href="https://en.m.wikipedia.org/wiki/Rated_voting"><b>оценочные системы голосования</b></a>
+                могут удовлетворять всем следующим условиям:
+            </p>
+            <ul>
+                <li>универсальность</li>
+                <li>отсутствие диктатора</li>
+                <li>принцип единогласия</li>
+                <li>независимость от посторонних альтернатив</li>
+            </ul>
+            <p>
+                Одной из таких систем является
+                <a href="https://en.m.wikipedia.org/wiki/Quadratic_voting">квадратичное голосование</a>,
+                основанное на рыночных принципах.
+            </p>
+            <ul>
+                <li><a href="https://m.youtube.com/watch?v=Mf0XJMySTDI">Видео</a></li>
+                <li><a href="https://t.me/vertdider">Telegram-канал студии Vert Dider</a></li>
+                <li><a href="https://en.wikiquote.org/wiki/Henry_George">Henry George</a></li>
+            </ul>
+        </section>
 
-    <section>
-     <p>
-         Согласно <a href="https://ru.m.wikipedia.org/wiki/Теорема_Эрроу" style="color: #151719">теореме Эрроу</a>, только <a href="https://en.m.wikipedia.org/wiki/Rated_voting" style="color: #151719"><b>оценочные системы голосования</b></a> могут удовлетворять всем следующим условиям:<br>
-         – универсальность<br>
-         – отсутсвие диктатора<br>
-         – принцип единогласия<br>
-         – независимость от посторонних альтернатив
-        <br><br>
-        Одной из таких систем является <a href="https://en.m.wikipedia.org/wiki/Quadratic_voting" style="color: #151719">квадратичное голосование</a>, основанное на рыночных принципах.
-        <br><br>
-        – <a href="https://m.youtube.com/watch?v=Mf0XJMySTDI" style="color: #151719">Ссылка</a><br>
-        – <a href="https://t.me/vertdider" style="color: #151719">Telegram-канал студии Vert Dider</a>                     
-     </p>
-    </section> 
+        <section>
+            <h2>Децентрализованные сети</h2>
+            <p>
+                <a href="https://ru.wikipedia.org/wiki/Ячеистая_топология"><b>Беспроводные mesh-сети</b></a>
+                — децентрализованные <a href="https://en.wikipedia.org/wiki/Wireless_ad_hoc_network">самоорганизующиеся</a>
+                радиосети, узлы которых способны принимать на себя роль
+                <a href="https://en.wikipedia.org/wiki/Router_(computing)">маршрутизатора</a>.
+                В России лицензированию <a href="https://habr.com/ru/articles/183474/">не подлежат</a>
+                <a href="https://habr.com/ru/articles/196562/">mesh-сети в Wi-Fi диапазоне</a>.
+            </p>
+            <ul>
+                <li><a href="https://meshtastic.org/">Meshtastic</a> — <a href="https://opennet.ru/60423-meshtastic">подробнее</a>, <a href="https://t.me/meshtastic_russia">@meshtastic_russia</a></li>
+                <li><a href="https://habr.com/ru/companies/globalsign/articles/662489/">Reticulum</a></li>
+                <li><a href="https://t.me/aprs_russia">@aprs_russia</a></li>
+                <li><a href="https://t.me/NetSurvivalist">@NetSurvivalist</a></li>
+                <li><a href="http://websdr.org/">Самый большой каталог WebSDR-приёмников</a></li>
+                <li><a href="https://www.youtube.com/watch?v=3CbXoo5rqSU&t=1057s">Видео</a></li>
+            </ul>
+            <p><b>Децентрализованные сети</b></p>
+            <ul>
+                <li>
+                    <a href="https://dev.to/agentofuser/the-complete-beginner-s-guide-to-deploying-your-first-static-website-to-ipfs-33po">Руководство по развёртыванию статического сайта в сети IPFS</a>
+                    — <a href="https://github.com/ipfs-shipyard/ipfs-deploy">Github</a>,
+                    <a href="https://t.me/brain_dump_etc/135">NeoCities</a>
+                </li>
+                <li><a href="https://github.com/yggdrasil-network">Yggdrasil</a> — <a href="https://t.me/yggdrasil_for_pots">@yggdrasil_for_pots</a>, <a href="https://t.me/Yggdrasil_ru">@Yggdrasil_ru</a></li>
+                <li><a href="https://ru.wikipedia.org/wiki/ZeroNet">ZeroNet</a></li>
+                <li>
+                    <a href="https://jointhefediverse.net/learn/?lang=ru">Fediverse</a> —
+                    <a href="https://ru.wikipedia.org/wiki/PeerTube">PeerTube</a> (децентрализованная альтернатива видеохостингам),
+                    <a href="https://joinmastodon.org/">Mastodon</a> (самая популярная децентрализованная соцсеть),
+                    <a href="https://indieweb.org/Manyverse">Manyverse</a>
+                </li>
+                <li><a href="https://nettime.org/info.html">Nettime</a> — соцсеть на основе электронной почты</li>
+            </ul>
+            <p>Группы в Telegram:</p>
+            <ul>
+                <li><a href="https://t.me/dcntr">@dcntr</a></li>
+                <li><a href="https://t.me/distributed">@distributed</a></li>
+            </ul>
+        </section>
 
-    <section>
-     <p>
-        <a href="https://phoboslab.org/wipegame" style="color: #151719">Браузерная версия</a> первой части <a href="https://en.wikipedia.org/wiki/Wipeout_(video_game_series)" style="color: #151719"><b>Wipeout</b></a> — серии игр с проработанными <a href="https://coldstorage.bandcamp.com/" style="color: #151719">саундтреками</a> и intro
-        <br><br>
-        – <a href="https://github.com/NR74W/WipEout-Fonts?ysclid=man1dq7ze6441298255" style="color: #151719">Шрифты</a>
-     </p>
-    </section>
+        <section>
+            <h2>Хостинг и IndieWeb</h2>
+            <p><a href="https://indieweb.org/"><b>IndieWeb</b></a></p>
+            <ul>
+                <li><a href="https://optozorax.github.io/p/submodules-jekyll/">Блог на Github Pages</a></li>
+                <li><a href="https://t.me/brain_dump_etc/378">Tilde-сервера</a></li>
+                <li><a href="https://plus-one.ru/news/2023/04/17/pervyy-veb-sayt-na-solnechnyh-batareyah-i-mini-kompyutere-rabotaet-uzhe-bolshe-dvuh-nedel">Сайт на солнечных батареях</a></li>
+                <li><a href="https://sputnik.rucloud.host/">Сайт на космическом хостинге</a></li>
+                <li><a href="https://a.weird.one/">Weird</a></li>
+                <li><a href="https://pages.cloudflare.com/">Cloudflare Pages</a></li>
+                <li><a href="https://t.me/bpblog/1129">МикоризаВики</a> — вики на <a href="https://t.me/brain_dump_etc/377">Gemini Text</a></li>
+            </ul>
+        </section>
 
-    <section>
-     <p>
-        – <a href="https://www.youtube.com/watch?v=71eUes30gwc" style="color: #151719">Ссылка</a>
-     </p>
-    </section>
+        <section>
+            <h2>Инструменты</h2>
+            <ul>
+                <li>
+                    <a href="https://cobalt.tools/"><b>Кобальт</b></a> — бесплатный загрузчик контента из соцсетей в высоком качестве без рекламы
+                    — <a href="https://t.me/coboldbot">@coboldbot</a>,
+                    <a href="https://t.me/justusecobalt_ru">канал с обновлениями</a>
+                </li>
+                <li>
+                    <a href="https://ru.wikipedia.org/wiki/Organic_Maps"><b>Organic Maps</b></a> — бесплатное приложение для автономной навигации на данных
+                    <a href="https://ru.wikipedia.org/wiki/OpenStreetMap">OpenStreetMap</a>,
+                    от основателей <a href="https://ru.wikipedia.org/wiki/Maps.me">MapsMe</a>
+                </li>
+                <li>
+                    <a href="https://github.com/Julow/Unexpected-Keyboard"><b>Unexpected keyboard</b></a> — функциональная клавиатура для Android
+                    — <a href="https://play.google.com/store/apps/details?id=juloo.keyboard2">Google Play</a>
+                </li>
+                <li><a href="http://qrlogo.ru/">Конструктор динамических QR-кодов</a></li>
+                <li><a href="https://products.aspose.app/barcode/recognize/qr#">Сканер повреждённых и нечитаемых QR-кодов</a></li>
+            </ul>
+        </section>
 
-    <section>
-     <p>
-         <a href="https://en.wikipedia.org/wiki/Module_file" style="color: #151719"><b>Трекерная музыка</b></a>
-        <br><br>
-        – <a href="https://www.youtube.com/watch?v=5J4o_Q5IBXM&t=151s" style="color: #151719">Ссылка</a><br>
-          | <a href="https://www.youtube.com/watch?v=jKfmHy4n_o4" style="color: #151719">Версия для наушников</a>
-     </p>
-    </section>
-      
-    <section>
-     <p>
-        – <a href="https://www.youtube.com/watch?v=SDvk3aL78fI" style="color: #151719">Ссылка</a>
-     </p>
-    </section>
-      
-    <section>
-     <p>
-        – <a href="https://www.youtube.com/watch?v=eVB9EJ1mTl0" style="color: #151719">Ссылка</a><br>
-     </p>
-    </section>
-      
-    <section>
-     <p>
-        <a href="https://cobalt.tools/" style="color: #151719"><b>Кобальт</b></a> — бесплатный загрузчик контента из соцсетей и других сервисов в высоком качестве без рекламы.
-        <br><br>        
-        – <a href="https://t.me/coboldbot" style="color: #151719">@coboldbot</a><br>
-        – <a href="https://t.me/justusecobalt_ru" style="color: #151719">Канал с новостями и обновлениями</a>
-     </p>
-    </section>
-      
-    <section>
-     <p>
-        <a href="https://ru.wikipedia.org/wiki/Ячеистая_топология" style="color: #151719"><b>Беспроводные mesh-сети</b></a> — децентрализованные <a href="https://en.wikipedia.org/wiki/Wireless_ad_hoc_network" style="color: #151719">самоорганизующиеся</a> радиосети, узлы которых способны принимать на себя роль <a href="https://en.wikipedia.org/wiki/Router_(computing)" style="color: #151719">маршрутизатора</a>. В России лицензированию <a href="https://habr.com/ru/articles/183474/" style="color: #151719">не подлежат</a> <a href="https://habr.com/ru/articles/196562/" style="color: #151719">mesh-сети в WI-FI диапазоне</a>.
-        <br><br>
-        – <a href="https://meshtastic.org/" style="color: #151719">Meshtastic</a><br>
-          | <a href="https://opennet.ru/60423-meshtastic" style="color: #151719">Подробнее</a><br>
-          | <a href="https://t.me/meshtastic_russia" style="color: #151719">@meshtastic_russia</a><br>
-        – <a href="https://habr.com/ru/companies/globalsign/articles/662489/" style="color: #151719">Reticulum</a><br>
-        – <a href="https://t.me/aprs_russia" style="color: #151719">@aprs_russia</a>
-        <br><br>
-        – <a href="https://t.me/NetSurvivalist" style="color: #151719">@NetSurvivalist</a><br>
-        – <a href="http://websdr.org/" style="color: #151719">Самый большой каталог WebSDR-приёмников</a>
-     </p>
-    </section>
+        <section>
+            <h2>Музыка и звук</h2>
+            <p><a href="https://bandcamp.com/simeonlub/following/artists_and_labels">Bandcamp</a>. 5 причин перейти:</p>
+            <ul>
+                <li>Свободный доступ в России</li>
+                <li>Бесплатное прослушивание и скачивание треков в различных форматах</li>
+                <li>Удобный интерфейс и простой дизайн, возможность редактирования авторами своих страниц</li>
+                <li>Система фильтров и тегов</li>
+                <li>Прямая поддержка независимых исполнителей, в частности, через покупку мерча; низкие комиссионные сборы и свободное ценообразование</li>
+            </ul>
+            <p>
+                <a href="https://t.me/yandmusicbot">Неофициальный клиент Яндекс Музыки в Telegram</a>
+                — <a href="https://t.me/yandex_music_api">чат разработчиков</a>,
+                <a href="https://t.me/music_yandex_channel">старый канал</a>,
+                <a href="https://t.me/fmusbot">бот для скачивания музыки</a>
+            </p>
+            <p><a href="https://en.wikipedia.org/wiki/Module_file"><b>Трекерная музыка</b></a></p>
+            <ul>
+                <li><a href="https://www.youtube.com/watch?v=5J4o_Q5IBXM&t=151s">Ссылка</a>, <a href="https://www.youtube.com/watch?v=jKfmHy4n_o4">версия для наушников</a></li>
+                <li><a href="https://www.youtube.com/watch?v=SDvk3aL78fI">Ссылка</a></li>
+                <li><a href="https://www.youtube.com/watch?v=eVB9EJ1mTl0">Ссылка</a></li>
+            </ul>
+            <p>
+                <a href="https://oscilloscopemusic.com/info/about/"><b>3D Oscilloscope Music</b></a>
+                — <a href="https://osci-render.com/">Osci-render</a>
+            </p>
+            <ul>
+                <li><a href="https://www.youtube.com/watch?v=ywdRQ3zU6Uc">Ссылка</a></li>
+                <li><a href="https://jerobeamfenderson.bandcamp.com/">Слушать на Bandcamp</a></li>
+                <li><a href="https://www.youtube.com/watch?v=J2YQD8Go_Hc">Ссылка</a></li>
+            </ul>
+            <p><b>4D Oscilloscope Music</b></p>
+            <ul>
+                <li><a href="https://www.youtube.com/watch?v=bvD18I6X0cE">Ссылка</a></li>
+            </ul>
+            <p><a href="https://ru.m.wikipedia.org/wiki/SunVox">SunVox</a></p>
+            <p><a href="https://en.wikipedia.org/wiki/Microtonality#Microtonality_in_electronic_music">Микротоновая музыка</a></p>
+            <p>
+                <a href="https://www.youtube.com/watch?v=wdYpk-LpbEI">Ссылка</a>
+                — <a href="https://drive.google.com/file/d/1lmUUOEgTHhxr95vLt5dCMnXTxdef8jTi/view">слушать в высоком качестве</a>
+            </p>
+        </section>
 
-    <section>
-     <p>
-        – <a href="https://www.youtube.com/watch?v=3CbXoo5rqSU&t=1057s" style="color: #151719">Ссылка</a>
-     </p>
-    </section>
-      
-    <section>
-     <p>
-        <b>Децентрализованные сети</b>
-        <br><br>
-        – <a href="https://dev.to/agentofuser/the-complete-beginner-s-guide-to-deploying-your-first-static-website-to-ipfs-33po" style="color: #151719">Руководство по развертыванию бесплатного статического веб-сайта</a> в <a href="https://dev.to/agentofuser/the-complete-beginner-s-guide-to-deploying-your-first-static-website-to-ipfs-33po" style="color: #151719">сети IPFS</a> на облачных хостингах<br>
-          | <a href="https://github.com/ipfs-shipyard/ipfs-deploy?tab=readme-ov-file#install" style="color: #151719">Github</a><br> 
-          | <a href="https://t.me/brain_dump_etc/135" style="color: #151719">NeoCities</a><br> 
-        – <a href="https://github.com/yggdrasil-network" style="color: #151719">Yggdrasil</a><br>
-          | <a href="https://t.me/yggdrasil_for_pots" style="color: #151719">@yggdrasil_for_pots</a><br> 
-          | <a href="https://t.me/Yggdrasil_ru" style="color: #151719">@Yggdrasil_ru</a><br> 
-        – <a href="https://ru.wikipedia.org/wiki/ZeroNet" style="color: #151719">ZeroNet</a>
-        <br><br>
-        – <a href="https://jointhefediverse.net/learn/?lang=ru" style="color: #151719">Fediverse</a><br> 
-          | <a href="https://ru.wikipedia.org/wiki/PeerTube" style="color: #151719">Peertube</a> — основная децентрализованная альтернатива популярным видеохостингам<br>
-          | <a href="https://joinmastodon.org/" style="color: #151719">Mastodon</a> — самая популярная децентрализованная соцсеть<br>
-          | <a href="https://indieweb.org/Manyverse" style="color: #151719">Manyverse</a><br> 
-        – <a href="https://nettime.org/info.html" style="color: #151719">Nettime</a> — соцсеть на основе электронной почты</a>
-        <br><br>
-        Группы:<br>
-        – <a href="https://t.me/dcntr" style="color: #151719">@dcntr</a><br> 
-        – <a href="https://t.me/distributed" style="color: #151719">@distributed</a>
-     </p>
-    </section>
-      
-    <section>
-     <p>
-        – <a href="https://a.weird.one/" style="color: #151719">Weird</a><br>
-        – <a href="https://pages.cloudflare.com/" style="color: #151719">Cloudflare pages</a><br>
-        – <a href="https://t.me/bpblog/1129" style="color: #151719">МикоризаВики</a> — вики, использующая <a href="https://t.me/brain_dump_etc/377" style="color: #151719">Gemini Text</a> в качестве разметки
-     </p>
-    </section>
-      
-    <section>
-     <p>  
-        <a href="https://indieweb.org/" style="color: #151719"><b>IndieWeb</b></a>
-        <br><br>
-        – <a href="https://optozorax.github.io/p/submodules-jekyll/" style="color: #151719">Блог на Github Pages</a><br>
-        – <a href="https://t.me/brain_dump_etc/378" style="color: #151719">Tilde-сервера</a><br>
-        – <a href="https://plus-one.ru/news/2023/04/17/pervyy-veb-sayt-na-solnechnyh-batareyah-i-mini-kompyutere-rabotaet-uzhe-bolshe-dvuh-nedel" style="color: #151719">Сайт на солнечных батареях</a><br>
-        – <a href="https://sputnik.rucloud.host/" style="color: #151719">Сайт на космическом хостинге</a>
-     </p>
-    </section>
-      
-    <section>
-     <p>                     
-        <a href="https://ru.m.wikipedia.org/wiki/5D_Chess_with_Multiverse_Time_Travel" style="color: #151719">5D-шахматы</a><br>
-          | <a href="https://en.wikipedia.org/wiki/Chess960" style="color: #151719">Chess960</a>
-        <br><br>
-        – <a href="https://optozorax.github.io/e/4d/?ysclid=m9slwyhxmq108066220" style="color: #151719">Четырёхмерное пространство</a><br>
-     </p>
-    </section>
-      
-    <section>
-     <p>
-        – <a href="https://www.youtube.com/embed/rvskMHn0sqQ" style="color: #151719">Ссылка</a>
-     </p>
-    </section>
-    
-    <section>
-     <p>
-        <a href="https://tokipona.org/" style="color: #151719"><b>Токипона</b></a> — самый простой язык.</a>
-        <br><br>
-        – <a href="https://lipu-sona.pona.la/ru/" style="color: #151719">Русскоязычный курс</a><br>
-        – <a href="https://t.me/toki_pona_learn_bot" style="color: #151719">@toki_pona_learn_bot</a><br>
-        <br><br>
-        – <a href="https://t.me/lojban_key" style="color: #151719">Ложбан</a><br>
-        – <a href="https://zbenglish.net/sites/basic/wordmenu.html" style="color: #151719">Basic English</a><br>
-        – <a href="https://t.me/ruslat" style="color: #151719">@ruslat</a>
-     </p>
-    </section>
-    <section>
-     <p>
-        <a href="https://oscilloscopemusic.com/info/about/" style="color: #151719"><b>3D Oscilloscope Music</b></a><br>
-          | <a href="https://osci-render.com/" style="color: #151719">Osci-render</a>
-        <br><br>
-        – <a href="https://www.youtube.com/watch?v=ywdRQ3zU6Uc" style="color: #151719">Ссылка</a><br>
-        – <a href="https://jerobeamfenderson.bandcamp.com/" style="color: #151719">Слушать на Bandcamp</a>
-     </p>
-    </section>
-    
-    <section>
-     <p>                     
-        – <a href="https://www.youtube.com/watch?v=J2YQD8Go_Hc" style="color: #151719">Ссылка</a><br>
-     </p>
-    </section>
-      
-    <section>
-     <p>
-        <b>4D Oscilloscope Music</b>
-        <br><br>
-        – <a href="https://www.youtube.com/watch?v=bvD18I6X0cE" style="color: #151719">Ссылка</a>
-     </p>
-    </section>
+        <section>
+            <h2>Кино и видео</h2>
+            <ul>
+                <li>
+                    <a href="https://ru.m.wikipedia.org/wiki/Шина_(фильм)">«Шина»</a> — фильм
+                    <a href="https://www.kinopoisk.ru/name/537440/"><b>Кантена Дюпьё</b></a> об автомобильной покрышке
+                </li>
+                <li>
+                    <a href="https://phoboslab.org/wipegame">Браузерная версия</a> первой части
+                    <a href="https://en.wikipedia.org/wiki/Wipeout_(video_game_series)"><b>Wipeout</b></a>
+                    — серии игр с проработанными <a href="https://coldstorage.bandcamp.com/">саундтреками</a> и intro
+                    — <a href="https://github.com/NR74W/WipEout-Fonts">шрифты</a>
+                </li>
+                <li><a href="https://www.youtube.com/watch?v=71eUes30gwc">Ссылка</a></li>
+            </ul>
+        </section>
 
-    <section>
-     <p>                     
-        – <a href="https://t.me/osint_club_channel/335?comment=75889" style="color: #151719">Граф Telegram-чатов</a><br>
-        – <a href="https://www.shodan.io/" style="color: #151719">Shodan</a> — поисковая система, позволяющая искать различные типы серверов.
-      </p>
-    </section>
-      
-    <section>
-     <p>
-        <a href="https://ru.wikipedia.org/wiki/Organic_Maps" style="color: #151719"><b>Organic Maps</b></a> — бесплатное приложение для автономной навигации, использующее картографические данные из <a href="https://ru.wikipedia.org/wiki/OpenStreetMap" style="color: #151719">OpenStreetMap</a> и разработанное основателями <a href="https://ru.wikipedia.org/wiki/Maps.me" style="color: #151719">MapsMe</a>.
-     </p>
-    </section>
-    
-    <section>
-     <p>
-        <a href="https://github.com/Julow/Unexpected-Keyboard" style="color: #151719"></a><b>Unexpected keyboard</b></a> — функциональная клавиатура для Android.
-        <br><br>
-        – <a href="https://play.google.com/store/apps/details?id=juloo.keyboard2" style="color: #151719">Скачать из Google Play</a>
-     </p>
-    </section>
-      
-    <section>
-     <p>
-        <a href="https://en.wikipedia.org/wiki/Arctic_World_Archive" style="color: #151719"><b>Arctic World Archive</b></a> — <a href="https://arcticworldarchive.org/" style="color: #151719">хранилище данных</a>, <a href="https://habr.com/ru/companies/ruvds/articles/326828/" style="color: #151719">расположенное на острове Шпицберген</a>, которое содержит весь открытый исходный код GitHub в виде <a href="https://en.wikipedia.org/wiki/Boxing_barcode" style="color: #151719">двумерного штрих-кода</a> и способно выдержать ядерный взрыв.
-      </p>
-    </section>  
-          
-    <section>
-     <p>
-        <a href="https://fis.wikireading.ru/hXbSZ0htV5" style="color: #151719">Ссылка</a><br>
-        – <a href="https://habr.com/ru/articles/738004/" style="color: #151719">Супердетерминизм</a><br>
-          | <a href="https://www.youtube.com/watch?v=ytyjgIyegDI" style="color: #151719">Ссылка</a><br>
-        – <a href="https://www.youtube.com/watch?v=PdL8CudJTcs" style="color: #151719">Ссылка</a><br>
-     </p>
-    </section>
-    <section>
-     <p>         
-         Список каналов:<br>
-          | <a href="https://github.com/P3rf0r4tor/netstalking-catalogue" style="color: #151719">Более полный каталог на Github</a>
-        <br><br>
-        – <a href="https://t.me/netstalking_links_bot" style="color: #151719">@netstalking_links_bot</a><br>
-        – <a href="https://t.me/netstalking" style="color: #151719">@netstalking</a><br>
-          | <a href="https://t.me/netstalking_godnota" style="color: #151719">@netstalking_godnota</a><br>
-          | <a href="https://t.me/netstalking_overground" style="color: #151719">@netstalking_overground</a><br>
-        – <a href="https://t.me/netstalking_bulletin" style="color: #151719">@netstalking_bulletin</a><br>
-        – <a href="https://t.me/netstalking_documents" style="color: #151719">@netstalking_documents</a>
-        <br><br>
-        – <a href="https://t.me/iran_highweb" style="color: #151719">@iran_highweb</a><br>
-        – <a href="https://t.me/netstalking_community" style="color: #151719">@netstalking_community</a><br>
-        – <a href="https://t.me/sdr_data" style="color: #151719">@sdr_data</a><br>
-        – <a href="https://t.me/finds_dump_netstalking" style="color: #151719">@finds_dump_netstalking</a>
-        <br><br>
-        – Изображения<br>
-          | <a href="https://t.me/memory_not_found" style="color: #151719">@memory_not_found</a>
-        <br><br>
-        – Камеры<br>
-          | <a href="https://t.me/netstalking_webcameras" style="color: #151719">@netstalking_webcameras</a><br>
-          | <a href="https://t.me/sur_NET" style="color: #151719">@sur_NET</a><br>
-          | <a href="https://t.me/mov3371" style="color: #151719">@mov3371</a><br>
-          | <a href="https://t.me/asleep_cg" style="color: #151719">@asleep_cg</a><br>
-          | <a href="https://t.me/netrandom_cams" style="color: #151719">@netrandom_cams</a><br>
-          | <a href="https://t.me/cctv_vision" style="color: #151719">@cctv_vision</a>
-        <br><br>
-        – Сайты<br>
-          | <a href="https://t.me/ipshit" style="color: #151719">@ipshit</a><br>
-          | <a href="https://t.me/gohquooFee3duaNaeNuthushoh8di2" style="color: #151719">@gohquooFee3duaNaeNuthushoh8di2</a><br>
-          | <a href="https://t.me/randomaesthetic" style="color: #151719">@randomaesthetic</a>
-     </p>
-    </section>
-    <section>
-     <p>
-         – <a href="https://en.wikipedia.org/wiki/Warsaw_radio_mast" style="color: #151719">Варшавская радиомачта</a>
-     </p>
-    </section>
-    <section>
-     <p>
-         – <a href="https://ru.m.wikipedia.org/wiki/SunVox" style="color: #151719">SunVox</a>
-        <br><br>
-         – <a href="https://en.wikipedia.org/wiki/Microtonality#Microtonality_in_electronic_music" style="color: #151719">Микротоновая музыка</a>
-     </p>
-    </section>
-    <section>
-     <p>
-        Полезные боты:
-        <br><br>
-        – <a href="https://t.me/smartspeech_sber_bot" style="color: #151719">@smartspeech_sber_bot</a><br>
-        – <a href="https://t.me/ControllerBot" style="color: #151719">@ControllerBot</a><br>
-        – <a href="https://t.me/DownloadStickersBot" style="color: #151719">@DownloadStickersBot</a><br>
-        – <a href="https://t.me/ChatLogix" style="color: #151719">@ChatLogix</a>
-        <br><br>
-        – <a href="https://t.me/GmailBot" style="color: #151719">@GmailBot</a><br>
-        – <a href="https://t.me/AlicaTalkBot" style="color: #151719">@AlicaTalkBot</a><br>
-        – <a href="https://t.me/vid" style="color: #151719">@vid</a>
-        <br><br>
-        Другое:
-        <br><br>
-        – <a href="https://pythonin1minute.com/how-to-beep-in-python/" style="color: #151719">How to beep In Python</a><br>
-        – <a href="https://www.meme-arsenal.com/memes/8261a90ae5f1cf7b4420c6626eac1632.jpg" style="color: #151719">Шаблон</a><br>
-        – <a href="https://github.com/ilyhalight/voice-over-translation" style="color: #151719">Расширение, которое добавляет закадровый перевод видео из Yandex Browser в другие браузеры</a><br>
-        – <a href="https://www.foldnfly.com/" style="color: #151719">Cайт с моделями бумажных самолетов</a>
-     </p>
-    </section>
-          
-    <section>
-     <p>
-        <a href="https://ru.m.wikipedia.org/wiki/Вейдер,_Дарт_Алексеевич" style="color: #151719">Дарт Вейдер</a>
-     </p>
-    </section>
+        <section>
+            <h2>Языки</h2>
+            <ul>
+                <li>
+                    <a href="https://tokipona.org/"><b>Токипона</b></a> — самый простой язык
+                    — <a href="https://lipu-sona.pona.la/ru/">русскоязычный курс</a>,
+                    <a href="https://t.me/toki_pona_learn_bot">@toki_pona_learn_bot</a>
+                </li>
+                <li><a href="https://t.me/lojban_key">Ложбан</a></li>
+                <li><a href="https://zbenglish.net/sites/basic/wordmenu.html">Basic English</a></li>
+                <li><a href="https://t.me/ruslat">@ruslat</a></li>
+            </ul>
+        </section>
 
-    <section>
-     <p>
-        – <a href="http://telegra.ph/Lernejo-09-14" style="color: #151719">Критика школьных расписаний</a><br>
-        – <a href="http://telegra.ph/Besit-Oblozhki-tetradej-08-31" style="color: #151719">Критика тетрадных обложек</a><br>
-        – <a href="http://telegra.ph/Besit-Rukopisnye-bukvy-08-02" style="color: #151719">Критика рукописных букв</a><br>
-        – <a href="https://bouncepaw.github.io/et-ceteras" style="color: #151719">Критика графических сокращений</a>
-     </p>
-    </section>
-    <section>
-     <p>
-         – <a href="https://www.youtube.com/watch?v=ucL0NTdKdb4" style="color: #151719">Ссылка</a><br>
-     </p>
-    </section>
-    <section>
-     <p>
-         – <a href="https://youtu.be/vBWcI-pOaq8" style="color: #151719">Ссылка</a><br>
-     </p>
-    </section>
-    <section>
-     <p>
-         – <a href="https://www.youtube.com/watch?v=bAinj6lcv_4" style="color: #151719">Ссылка</a><br>
-     </p>
-    </section>
-    <section>
-     <p>
-         – <a href="https://www.youtube.com/watch?v=Y04LBDTsGIk" style="color: #151719">Ссылка</a><br>
-     </p>
-    </section>
-    <section>
-     <p>
-         – <a href="https://www.youtube.com/watch?v=BDERfRP2GI0&ab_channel=JerobeamFenderson" style="color: #151719">Ссылка</a><br>
-     </p>
-    </section>
-    <section>
-     <p>
-         – <a href="https://www.youtube.com/watch?v=OP7sTQQ0Blw" style="color: #151719">Ссылка</a><br>
-     </p>
-    </section>
-    
-    <section>
-     <p>
-         – <a href="https://www.youtube.com/watch?v=wdYpk-LpbEI" style="color: #151719">Ссылка</a><br>
-          | <a href="https://drive.google.com/file/d/1lmUUOEgTHhxr95vLt5dCMnXTxdef8jTi/view" style="color: #151719">Слушать в высоком качестве</a><br>
-     </p>
-    </section>
-    <section>
-     <p>
-        <a href="https://anuke.itch.io/mindustry" style="color: #151719"><b>Mindustry</b></a> — бесплатная многопользовательская стратегия в реальном времени.
-     </p>
-    </section>
-    <section>
-     <p>
-         <a href="https://www.senz.com/" style="color: #151719"><b>Zens</b></a> — голландский бренд зонтов с аэродинамической конструкцией.
-     </p>
-    </section>
+        <section>
+            <h2>Игры и развлечения</h2>
+            <ul>
+                <li><a href="https://ru.m.wikipedia.org/wiki/5D_Chess_with_Multiverse_Time_Travel">5D-шахматы</a>, <a href="https://en.wikipedia.org/wiki/Chess960">Chess960</a></li>
+                <li><a href="https://optozorax.github.io/e/4d/">Четырёхмерное пространство</a></li>
+                <li><a href="https://www.youtube.com/embed/rvskMHn0sqQ">Ссылка</a></li>
+                <li><a href="https://anuke.itch.io/mindustry"><b>Mindustry</b></a> — бесплатная многопользовательская стратегия в реальном времени</li>
+                <li><a href="https://t.me/randonaut_ru_official">Рандомайзер географических координат</a></li>
+                <li>
+                    <a href="https://ru.m.wikipedia.org/wiki/Геокэшинг">Geocaching</a>
+                    — <a href="https://play.google.com/store/apps/details?id=com.groundspeak.geocaching.intro">Google Play</a>,
+                    <a href="https://t.me/geocaching_su">@geocaching_su</a> — официальный канал
+                    <a href="http://geocaching.su/">российского геокэшинга</a>
+                </li>
+                <li><a href="https://en.m.wikipedia.org/wiki/Munzee">Munzee</a> — игра по поиску QR-кодов</li>
+                <li>
+                    <a href="https://saycheese.hackclub.com/">Saycheese</a> — программа для создания игр в QR-кодах
+                    — <a href="https://saycheese.hackclub.com/gallery.html">галерея</a>
+                </li>
+                <li>
+                    <a href="https://kuber.studio/blog/Projects/How-I-Managed-To-Get-Doom-In-A-QR-Code">Doom в QR-коде на HTML</a>
+                    — <a href="https://github.com/Kuberwastaken/backdooms">Github</a>
+                </li>
+                <li><a href="https://github.com/thisaislan/qrgame">QRGame</a></li>
+            </ul>
+        </section>
 
-    <section>
-     <p>
-        – <a href="http://qrlogo.ru/" style="color: #151719">Конструктор динамических QR-кодов</a>
-        <br><br>
-        – <a href="https://saycheese.hackclub.com/" style="color: #151719">Saycheese</a> — программа для создания игр в QR-кодах.<br>
-          | <a href="https://saycheese.hackclub.com/gallery.html" style="color: #151719">Галерея QR-кодов</a><br>
-        – <a href="https://kuber.studio/blog/Projects/How-I-Managed-To-Get-Doom-In-A-QR-Code" style="color: #151719">Doom в QR-коде на HTML</a><br>
-          | <a href="https://github.com/Kuberwastaken/backdooms" style="color: #151719">Github</a><br>
-        – <a href="https://github.com/thisaislan/qrgame" style="color: #151719">QRGame </a>
-        <br><br>
-     </p>
-    </section>
-          
-    <section>
-     <p>
-        – <a href="https://products.aspose.app/barcode/recognize/qr#" style="color: #151719">Сканер повреждённых и нечитаемых QR-кодов</a><br>
-        – <a href="https://t.me/randonaut_ru_official" style="color: #151719">Рандомайзер географических координат</a><br>
-        – <a href="https://ru.m.wikipedia.org/wiki/Геокэшинг" style="color: #151719">Geocaching</a><br>
-          | <a href="https://play.google.com/store/apps/details?id=com.groundspeak.geocaching.intro" style="color: #151719">Скачать в Google Play</a><br>
-          | <a href="https://t.me/geocaching_su" style="color: #151719">@geocaching_su</a> — официальный канал <a href="http://geocaching.su/" style="color: #151719">российского геокэшинга</a><br>
-        – <a href="https://en.m.wikipedia.org/wiki/Munzee" style="color: #151719">Munzee</a> — игра по поиску QR-кодов
-        <br><br>
-     </p>
-    </section>
-            
-  </div>
-</body>
-</html>
+        <section>
+            <h2>Критика</h2>
+            <ul>
+                <li><a href="http://telegra.ph/Lernejo-09-14">Критика школьных расписаний</a></li>
+                <li><a href="http://telegra.ph/Besit-Oblozhki-tetradej-08-31">Критика тетрадных обложек</a></li>
+                <li><a href="http://telegra.ph/Besit-Rukopisnye-bukvy-08-02">Критика рукописных букв</a></li>
+                <li><a href="https://bouncepaw.github.io/et-ceteras">Критика графических сокращений</a></li>
+                <li><a href="https://www.youtube.com/watch?v=ucL0NTdKdb4">Ссылка</a></li>
+                <li><a href="https://youtu.be/vBWcI-pOaq8">Ссылка</a></li>
+                <li><a href="https://www.youtube.com/watch?v=bAinj6lcv_4">Ссылка</a></li>
+                <li><a href="https://www.youtube.com/watch?v=Y04LBDTsGIk">Ссылка</a></li>
+                <li><a href="https://www.youtube.com/watch?v=BDERfRP2GI0">Ссылка</a></li>
+                <li><a href="https://www.youtube.com/watch?v=OP7sTQQ0Blw">Ссылка</a></li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Разное</h2>
+            <ul>
+                <li>
+                    В логотипе <a href="https://en.m.wikipedia.org/wiki/Bitcoin">биткоина</a> используется
+                    полужирный курсив <a href="https://en.m.wikipedia.org/wiki/Ubuntu_(typeface)"><b>Ubuntu</b></a>
+                    — <a href="https://fonts.google.com/specimen/Ubuntu">скачать с Google Fonts</a>
+                </li>
+                <li><a href="https://ru.m.wikipedia.org/wiki/Вейдер,_Дарт_Алексеевич">Дарт Вейдер</a></li>
+                <li><a href="https://www.senz.com/"><b>Zens</b></a> — голландский бренд зонтов с аэродинамической конструкцией</li>
+                <li
