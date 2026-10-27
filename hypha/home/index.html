@@ -1,1 +1,168 @@
-# Добро пожаловать
+
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Home</title>
+	<link rel="icon" href="/static/favicon.ico">
+	<link rel="stylesheet" href="/static/style.css">
+	<meta property="og:title" content="Home"/>
+<meta property="og:type" content="article"/>
+<meta property="og:image" content="/favicon.ico"/>
+<meta property="og:url" content="http://0.0.0.0:8888/hypha/home"/>
+<meta property="og:determiner" content=""/>
+<meta property="og:description" content=""/>
+</head>
+<body data-rrh-addr="/hypha/home" data-rrh-cats=":категория:">
+<header>
+	<nav class="main-width top-bar">
+		<ul class="top-bar__wrapper">
+			<li class="top-bar__section top-bar__section_home">
+				<div class="top-bar__home-link-wrapper">
+					<a class="top-bar__home-link" href="/">Mycorrhiza Wiki</a>
+				</div>
+			</li>
+			<li class="top-bar__section top-bar__section_search">
+				<form class="top-bar__search" method="GET" action="/title-search">
+					<input type="text" name="q" class="top-bar__search-bar"
+					       placeholder="Search by title">
+				</form>
+			</li>
+			<li class="top-bar__section top-bar__section_auth">
+                
+			</li>
+			<li class="top-bar__section top-bar__section_highlights">
+				<ul class="top-bar__highlights">
+					
+						<li class="top-bar__highlight">
+							<a class="top-bar__highlight-link" href="/recent-changes">Recent changes</a>
+						</li>
+					
+						<li class="top-bar__highlight">
+							<a class="top-bar__highlight-link" href="/list">All hyphae</a>
+						</li>
+					
+						<li class="top-bar__highlight">
+							<a class="top-bar__highlight-link" href="/random">Random</a>
+						</li>
+					
+						<li class="top-bar__highlight">
+							<a class="top-bar__highlight-link" href="/help">Help</a>
+						</li>
+					
+						<li class="top-bar__highlight">
+							<a class="top-bar__highlight-link" href="/category">Categories</a>
+						</li>
+					
+				</ul>
+			</li>
+		</ul>
+	</nav>
+</header>
+
+    <main class="main-width">
+        <section id="hypha">
+            
+                <div class="btn btn_navititle">
+                    <a class="btn__link_navititle" href="/edit/home">
+                        Edit text</a></div>
+            
+
+            
+
+            
+<h1 class="navi-title"><a href="/hypha/home">🍄<span aria-hidden="true" class="navi-title__colon">:</span></a><a href="/hypha/home" rel="bookmark">Home</a>
+</h1>
+
+
+            <article class="mycomarkup-doc">
+	<p>
+		Это <s>электробус</s> главная страница
+	</p>
+</article>
+
+        </section>
+
+        <section class="prevnext">
+            
+            
+        </section>
+
+        
+
+        <section id="hypha-bottom">
+            <nav class="hypha-info">
+                <ul class="hypha-info__list">
+                    <li class="hypha-info__entry hypha-info__entry_history">
+                        <a class="hypha-info__link" href="/history/home">
+                            View history</a></li>
+
+                    <li class="hypha-info__entry hypha-info__entry_rename">
+                        <a class="hypha-info__link" href="/rename/home">
+                            Rename</a></li>
+
+                    <li class="hypha-info__entry hypha-info__entry_delete">
+                        <a class="hypha-info__link" href="/delete/home">
+                            Delete</a></li>
+
+                    <li class="hypha-info__entry hypha-info__entry_text">
+                        <a class="hypha-info__link" href="/text/home">
+                            View markup</a></li>
+
+                    <li class="hypha-info__entry hypha-info__entry_media">
+                        <a class="hypha-info__link" href="/media/home">Turn to media</a></li>
+
+                    <li class="hypha-info__entry hypha-info__entry_backlinks">
+                        <a class="hypha-info__link" href="/backlinks/home">
+                            backlink</a></li>
+                </ul>
+            </nav>
+        </section>
+    </main>
+    
+    
+        
+        
+        <aside class="layout-card categories-card">
+            <h2 class="layout-card__title">Categories</h2>
+            <ul class="categories-card__entries">
+                
+                    <li class="categories-card__entry">
+                        <a class="categories-card__link" href="/category/%d0%ba%d0%b0%d1%82%d0%b5%d0%b3%d0%be%d1%80%d0%b8%d1%8f">Категория</a>
+                        <form method="POST" action="/remove-from-category" class="categories-card__remove-form">
+                            <input type="hidden" name="cat" value="категория">
+                            <input type="hidden" name="hypha" value="home">
+                            <input type="hidden" name="redirect-to" value="/hypha/home">
+                            
+                                <input type="submit" value="x" class="btn categories-card__btn"
+                                       title="Remove the hypha from this category">
+                            
+                        </form>
+                    </li>
+                
+                
+                    <li class="categories-card__entry categories-card__add-to-cat">
+                        <form method="POST" action="/add-to-category" class="categories-card__add-form js-add-cat-form">
+                            <input type="text" name="cat" id="_cat-input" class="js-add-cat-name" autocomplete="off"
+                                   placeholder="Category n&zwnj;ame...">
+                            <datalist class="js-add-cat-list" id="cat-name-options"></datalist>
+                            <input type="hidden" name="hypha" value="home">
+                            <input type="hidden" name="redirect-to" value="/hypha/home">
+                            <input type="submit" class="btn categories-card__btn" value="+"
+                                   title="Add the hypha to this category">
+                        </form>
+                    </li>
+                
+            </ul>
+        </aside>
+    
+
+    
+
+<script src="/static/common.js"></script>
+<script src="/static/shortcuts.js"></script>
+<script src="/static/view.js"></script>
+
+</body>
+</html>
