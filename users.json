@@ -1,0 +1,23 @@
+[
+	{
+		"name": "user",
+		"group": "admin",
+		"hashed_password": "$2a$10$jmvRf6zphMDLoRc1Jr1AxO4n30cGdGxB.T4hRvwNxhSJsjvMhLZHC",
+		"registered_on": "2026-10-28T00:05:31.973789181+03:00",
+		"source": "local"
+	},
+	{
+		"name": "simeon",
+		"group": "admin",
+		"hashed_password": "$2a$10$Sm0wNKPMJjjC5IRb6WgM5uEi1igKYJTS9FPCuRPRWef1gHTKN0PFy",
+		"registered_on": "2026-10-28T00:42:36.72607659+03:00",
+		"source": "local"
+	},
+	{
+		"name": "admin",
+		"group": "admin",
+		"hashed_password": "$2a$10$biDwvAYSvGLxB.t5dvwK9uKDvD7VhYteIkih/Du9e8LZPbXyZDWlO",
+		"registered_on": "2026-10-28T00:09:59.898988688+03:00",
+		"source": "local"
+	}
+]
