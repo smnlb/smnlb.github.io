@@ -47,21 +47,23 @@ jobs:
         with:
           enable-cache: false
 
-      - name: Clone Spore with fallback settings
+      - name: Download and install Spore
         run: |
-          # Пытаемся клонировать, явно задавая HTTP/1.1 и отключая проверку SSL (только для этого шага)
-          GIT_TERMINAL_PROMPT=0 git clone --depth 1 \
-            -c http.version=HTTP/1.1 \
-            -c http.sslVerify=false \
-            -c http.useragent="Mozilla/5.0" \
-            https://git.sr.ht/~absolutely-vivid/spore /tmp/spore
+          # Скачиваем архив с исходным кодом Spore напрямую через wget
+          wget -q https://git.sr.ht/~absolutely-vivid/spore/archive/main.tar.gz -O /tmp/spore.tar.gz
+          mkdir -p /tmp/spore
+          tar -xzf /tmp/spore.tar.gz -C /tmp/spore --strip-components=1
           cd /tmp/spore
-          uv sync
+          # Устанавливаем зависимости и сам Spore в виртуальное окружение
+          uv venv
+          source .venv/bin/activate
+          uv pip install .
 
       - name: Generate static site with Spore
         run: |
           cd /tmp/spore
-          uv run python -m spore \
+          source .venv/bin/activate
+          python -m spore \
             --wiki-root $GITHUB_WORKSPACE \
             --wiki-url http://127.0.0.1:1737 \
             --output-dir $GITHUB_WORKSPACE/_site
