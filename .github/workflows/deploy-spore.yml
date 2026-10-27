@@ -15,16 +15,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout wiki repository
-        uses: actions/checkout@v4 # Возвращаем стабильную версию
+        uses: actions/checkout@v4
 
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
           go-version: 'stable'
+          cache: false
 
       - name: Build Mycorrhiza from source
         run: |
-          # Клонируем и собираем Mycorrhiza (используем зеркало на Codeberg)
           git clone --depth 1 https://codeberg.org/bouncepaw/mycorrhiza.git /tmp/mycorrhiza-src
           cd /tmp/mycorrhiza-src
           go build -o /tmp/mycorrhiza/mycorrhiza
@@ -32,9 +32,7 @@ jobs:
 
       - name: Start Mycorrhiza in background
         run: |
-          # Запускаем сервер на порту 1737, указывая на корень репозитория как на вики
           /tmp/mycorrhiza/mycorrhiza -listen-addr 127.0.0.1:1737 . &
-          # Ждем, пока сервер запустится (проверяем доступность порта)
           for i in {1..15}; do
             if curl --silent --fail http://127.0.0.1:1737 > /dev/null; then
               echo "Mycorrhiza is up!"
@@ -47,13 +45,16 @@ jobs:
       - name: Install uv
         uses: astral-sh/setup-uv@v5
         with:
-          enable-cache: true
+          enable-cache: false
 
-      - name: Clone Spore and install dependencies
+      - name: Clone Spore with fallback settings
         run: |
-          # Клонируем Spore с SourceHut. Добавляем --depth 1 для скорости.
-          # Если SourceHut недоступен, шаг упадёт, но мы это увидим в логах.
-          git clone --depth 1 https://git.sr.ht/~absolutely-vivid/spore /tmp/spore
+          # Пытаемся клонировать, явно задавая HTTP/1.1 и отключая проверку SSL (только для этого шага)
+          GIT_TERMINAL_PROMPT=0 git clone --depth 1 \
+            -c http.version=HTTP/1.1 \
+            -c http.sslVerify=false \
+            -c http.useragent="Mozilla/5.0" \
+            https://git.sr.ht/~absolutely-vivid/spore /tmp/spore
           cd /tmp/spore
           uv sync
 
