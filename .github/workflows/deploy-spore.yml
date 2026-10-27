@@ -2,7 +2,7 @@ name: Deploy Static Wiki to GitHub Pages
 
 on:
   push:
-    branches: [ "master", "main" ] # Запускать при пуше в master или main
+    branches: [ "master", "main" ]
   workflow_dispatch:
 
 permissions:
@@ -15,28 +15,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout wiki repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
-      - name: Set up Go
-        uses: actions/setup-go@v5
-        with:
-          go-version: 'stable'
-
-      - name: Build Mycorrhiza
+      - name: Start Mycorrhiza in Docker
         run: |
-          # Клонируем и собираем Mycorrhiza (используем зеркало на Codeberg)
-          git clone https://codeberg.org/bouncepaw/mycorrhiza.git /tmp/mycorrhiza-src
-          cd /tmp/mycorrhiza-src
-          go build -o /tmp/mycorrhiza/mycorrhiza
-          # Возвращаемся в рабочую директорию репозитория
-          cd $GITHUB_WORKSPACE
-
-      - name: Start Mycorrhiza in background
-        run: |
-          # Запускаем сервер на порту 1737, указывая на корень репозитория как на вики
-          /tmp/mycorrhiza/mycorrhiza -listen-addr 127.0.0.1:1737 . &
-          # Ждем, пока сервер запустится (проверяем доступность порта)
-          for i in {1..10}; do
+          # Запускаем официальный Docker-образ Mycorrhiza в фоне
+          docker run -d --name mycorrhiza -p 1737:1737 -v $GITHUB_WORKSPACE:/wiki bouncepaw/mycorrhiza
+          # Ждем, пока сервер поднимется
+          for i in {1..15}; do
             if curl --silent --fail http://127.0.0.1:1737 > /dev/null; then
               echo "Mycorrhiza is up!"
               break
@@ -47,18 +33,18 @@ jobs:
 
       - name: Install uv
         uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
 
       - name: Clone Spore and install dependencies
         run: |
           git clone https://git.sr.ht/~absolutely-vivid/spore /tmp/spore
           cd /tmp/spore
-          # Используем uv для создания окружения и установки зависимостей
           uv sync
 
       - name: Generate static site with Spore
         run: |
           cd /tmp/spore
-          # Запускаем Spore, передавая путь к вики и выходную директорию
           uv run python -m spore \
             --wiki-root $GITHUB_WORKSPACE \
             --wiki-url http://127.0.0.1:1737 \
