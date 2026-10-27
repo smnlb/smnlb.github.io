@@ -43,7 +43,13 @@ jobs:
             echo "Waiting for Mycorrhiza..."
             sleep 2
           done
-
+          
+      - name: Reindex Mycorrhiza
+        run: |
+          echo "Triggering reindex..."
+          curl -s http://127.0.0.1:1737/reindex
+          echo "Reindex triggered."
+          
       - name: Install uv
         uses: astral-sh/setup-uv@v5
         with:
