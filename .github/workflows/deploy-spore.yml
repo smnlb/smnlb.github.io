@@ -16,6 +16,8 @@ jobs:
     steps:
       - name: Checkout wiki repository
         uses: actions/checkout@v4
+        with:
+          submodules: false
 
       - name: Set up Go
         uses: actions/setup-go@v5
@@ -49,12 +51,10 @@ jobs:
 
       - name: Download and install Spore
         run: |
-          # Скачиваем архив с исходным кодом Spore напрямую через wget
           wget -q https://git.sr.ht/~absolutely-vivid/spore/archive/main.tar.gz -O /tmp/spore.tar.gz
           mkdir -p /tmp/spore
           tar -xzf /tmp/spore.tar.gz -C /tmp/spore --strip-components=1
           cd /tmp/spore
-          # Устанавливаем зависимости и сам Spore в виртуальное окружение
           uv venv
           source .venv/bin/activate
           uv pip install .
