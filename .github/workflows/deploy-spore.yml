@@ -15,13 +15,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout wiki repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v4 # Возвращаем стабильную версию
 
-      - name: Start Mycorrhiza in Docker
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: 'stable'
+
+      - name: Build Mycorrhiza from source
         run: |
-          # Запускаем официальный Docker-образ Mycorrhiza в фоне
-          docker run -d --name mycorrhiza -p 1737:1737 -v $GITHUB_WORKSPACE:/wiki bouncepaw/mycorrhiza
-          # Ждем, пока сервер поднимется
+          # Клонируем и собираем Mycorrhiza (используем зеркало на Codeberg)
+          git clone --depth 1 https://codeberg.org/bouncepaw/mycorrhiza.git /tmp/mycorrhiza-src
+          cd /tmp/mycorrhiza-src
+          go build -o /tmp/mycorrhiza/mycorrhiza
+          cd $GITHUB_WORKSPACE
+
+      - name: Start Mycorrhiza in background
+        run: |
+          # Запускаем сервер на порту 1737, указывая на корень репозитория как на вики
+          /tmp/mycorrhiza/mycorrhiza -listen-addr 127.0.0.1:1737 . &
+          # Ждем, пока сервер запустится (проверяем доступность порта)
           for i in {1..15}; do
             if curl --silent --fail http://127.0.0.1:1737 > /dev/null; then
               echo "Mycorrhiza is up!"
@@ -38,7 +51,9 @@ jobs:
 
       - name: Clone Spore and install dependencies
         run: |
-          git clone https://git.sr.ht/~absolutely-vivid/spore /tmp/spore
+          # Клонируем Spore с SourceHut. Добавляем --depth 1 для скорости.
+          # Если SourceHut недоступен, шаг упадёт, но мы это увидим в логах.
+          git clone --depth 1 https://git.sr.ht/~absolutely-vivid/spore /tmp/spore
           cd /tmp/spore
           uv sync
 
