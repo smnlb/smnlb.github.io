@@ -54,7 +54,7 @@ jobs:
         with:
           enable-cache: false
 
-      - name: Download and install Spore with uv
+      - name: Download and install Spore
         run: |
           wget -q https://git.sr.ht/~absolutely-vivid/spore/archive/main.tar.gz -O /tmp/spore.tar.gz
           mkdir -p /tmp/spore
@@ -63,8 +63,12 @@ jobs:
           # Создаем окружение с Python 3.11
           uv venv --python 3.11
           source .venv/bin/activate
-          # Устанавливаем только бинарные пакеты
+          
+          # 1. Сначала ставим все зависимости из pyproject.toml, используя только бинарные пакеты
           uv pip install --only-binary :all: .
+          
+          # 2. Затем отдельно собираем и ставим сам spore из исходников
+          uv pip install --no-build-isolation .
 
       - name: Generate static site with Spore
         run: |
