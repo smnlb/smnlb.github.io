@@ -59,20 +59,22 @@ jobs:
         run: |
           pip install pdm
 
-      - name: Clone and install Spore
+      - name: Clone and install Spore with uv
         run: |
           wget -q https://git.sr.ht/~absolutely-vivid/spore/archive/main.tar.gz -O /tmp/spore.tar.gz
           mkdir -p /tmp/spore
           tar -xzf /tmp/spore.tar.gz -C /tmp/spore --strip-components=1
           cd /tmp/spore
-          # Ключевое изменение: заставляем pdm использовать только бинарные пакеты
-          PDM_ONLY_BINARY=:all: pdm install
+          uv venv
+          source .venv/bin/activate
+          # Ключевое изменение: --only-binary :all:
+          uv pip install --only-binary :all: .
 
       - name: Generate static site with Spore
         run: |
           cd /tmp/spore
-          # Запускаем через pdm run, чтобы использовалось созданное окружение
-          pdm run python -m spore \
+          source .venv/bin/activate
+          python -m spore \
             --wiki-root $GITHUB_WORKSPACE \
             --wiki-url http://127.0.0.1:1737 \
             --output-dir $GITHUB_WORKSPACE/_site
