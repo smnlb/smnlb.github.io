@@ -49,25 +49,21 @@ jobs:
           curl -s http://127.0.0.1:1737/reindex
           echo "Reindex triggered."
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
         with:
-          python-version: '3.12'
+          enable-cache: false
 
-      
-      - name: Install pdm
-        run: |
-          pip install pdm
-
-      - name: Clone and install Spore with uv
+      - name: Download and install Spore with uv
         run: |
           wget -q https://git.sr.ht/~absolutely-vivid/spore/archive/main.tar.gz -O /tmp/spore.tar.gz
           mkdir -p /tmp/spore
           tar -xzf /tmp/spore.tar.gz -C /tmp/spore --strip-components=1
           cd /tmp/spore
-          uv venv
+          # Создаем окружение с Python 3.11
+          uv venv --python 3.11
           source .venv/bin/activate
-          # Ключевое изменение: --only-binary :all:
+          # Устанавливаем только бинарные пакеты
           uv pip install --only-binary :all: .
 
       - name: Generate static site with Spore
