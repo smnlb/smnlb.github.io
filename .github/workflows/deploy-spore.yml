@@ -49,10 +49,14 @@ jobs:
           curl -s http://127.0.0.1:1737/reindex
           echo "Reindex triggered."
 
-      - name: Install uv
-        uses: astral-sh/setup-uv@v5
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
         with:
-          enable-cache: false
+          python-version: '3.11'
+
+      - name: Install pdm
+        run: |
+          pip install pdm
 
       - name: Download and install Spore
         run: |
@@ -60,30 +64,23 @@ jobs:
           mkdir -p /tmp/spore
           tar -xzf /tmp/spore.tar.gz -C /tmp/spore --strip-components=1
           cd /tmp/spore
-          uv venv --python 3.11
-          source .venv/bin/activate
-          
-          # Устанавливаем Spore из исходников, но все зависимости — только бинарные
-          uv pip install --no-binary spore --only-binary :all: .
+          # Устанавливаем зависимости через pdm (официальный способ)
+          pdm install
 
       - name: Generate static site with Spore
         run: |
           cd /tmp/spore
-          source .venv/bin/activate
-          
-          # 1. Принудительно создаем папку _site
-          mkdir -p $GITHUB_WORKSPACE/_site
-          
-          # 2. Запускаем Spore
-          python -m spore \
+          # Запускаем Spore через pdm run, как указано в документации
+          pdm run python -m spore \
             --wiki-root $GITHUB_WORKSPACE \
             --wiki-url http://127.0.0.1:1737 \
             --output-dir $GITHUB_WORKSPACE/_site
-            
-          # 3. Выводим содержимое папки, чтобы понять, создались ли файлы
+
+      - name: Verify _site contents
+        run: |
           echo "=== Содержимое _site ==="
-          ls -la $GITHUB_WORKSPACE/_site
-          
+          ls -la $GITHUB_WORKSPACE/_site || echo "Папка _site отсутствует!"
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
