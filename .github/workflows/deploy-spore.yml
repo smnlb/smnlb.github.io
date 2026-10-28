@@ -70,11 +70,20 @@ jobs:
         run: |
           cd /tmp/spore
           source .venv/bin/activate
+          
+          # 1. Принудительно создаем папку _site
+          mkdir -p $GITHUB_WORKSPACE/_site
+          
+          # 2. Запускаем Spore
           python -m spore \
             --wiki-root $GITHUB_WORKSPACE \
             --wiki-url http://127.0.0.1:1737 \
             --output-dir $GITHUB_WORKSPACE/_site
-
+            
+          # 3. Выводим содержимое папки, чтобы понять, создались ли файлы
+          echo "=== Содержимое _site ==="
+          ls -la $GITHUB_WORKSPACE/_site
+          
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
