@@ -17,7 +17,7 @@ jobs:
       - name: Checkout wiki repository
         uses: actions/checkout@v4
         with:
-          submodules: false
+          submodules: recursive
 
       - name: Set up Go
         uses: actions/setup-go@v5
