@@ -66,6 +66,11 @@ jobs:
           cd /tmp/spore
           # Устанавливаем зависимости через pdm (официальный способ)
           pdm install
+          
+      - name: Verify Mycorrhiza is running
+        run: |
+          echo "Проверяем, что Mycorrhiza отвечает..."
+          curl -f http://127.0.0.1:1737/ || (echo "Mycorrhiza не отвечает!" && exit 1)
 
       - name: Generate static site with Spore
         run: |
@@ -84,7 +89,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: $GITHUB_WORKSPACE/_site
+          path: './_site' # <--- ИЗМЕНЕНИЕ ЗДЕСЬ
 
       - name: Deploy to GitHub Pages
         id: deployment
