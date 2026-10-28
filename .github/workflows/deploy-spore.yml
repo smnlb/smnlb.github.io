@@ -60,15 +60,11 @@ jobs:
           mkdir -p /tmp/spore
           tar -xzf /tmp/spore.tar.gz -C /tmp/spore --strip-components=1
           cd /tmp/spore
-          # Создаем окружение с Python 3.11
           uv venv --python 3.11
           source .venv/bin/activate
           
-          # 1. Сначала ставим все зависимости из pyproject.toml, используя только бинарные пакеты
-          uv pip install --only-binary :all: .
-          
-          # 2. Затем отдельно собираем и ставим сам spore из исходников
-          uv pip install --no-build-isolation .
+          # Устанавливаем Spore из исходников, но все зависимости — только бинарные
+          uv pip install --no-binary spore --only-binary :all: .
 
       - name: Generate static site with Spore
         run: |
